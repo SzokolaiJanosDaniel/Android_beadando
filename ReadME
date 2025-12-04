@@ -1,0 +1,148 @@
+# Company Status – Android alkalmazás
+
+Ez a projekt egy Androidos mobilalkalmazás, amit ketten készítettünk egy beadandó feladathoz.  
+Az alkalmazás célja, hogy egy cég vagy egy csapat tagjai meg tudják nézni egymás elérhetőségét és státuszát.
+
+Az app MockAPI-val működik, tehát a szobák, felhasználók és státuszok egy online szerverről töltődnek be.
+
+---
+
+## 1. Mit tud az alkalmazás?
+
+- Regisztráció és bejelentkezés  
+- Szobák listázása  
+- Szoba részleteinek megnyitása  
+- Tagok státuszának megjelenítése és módosítása  
+- „Last active” idő kiírása  
+- Kedvencek kezelése (Room adatbázissal)  
+- Profil megtekintése és név szerkesztése  
+- Beállítások (sötét mód, alap státusz, lista nézet, kijelentkezés)
+
+---
+
+## 2. Felhasznált technológiák
+
+### Android oldalon:
+- Java  
+- Android Studio  
+- Navigation Component  
+- ViewModel és LiveData  
+- Room Database  
+- Retrofit + Moshi  
+- Material Design  
+- SharedPreferences  
+
+### Backend:
+- MockAPI (REST, JSON)  
+- Gyűjtemények:
+  - /rooms  
+  - /users  
+  - /memberships  
+
+---
+
+## 3. Projekt felépítése
+
+```
+app/
+ └── java/com.szokolaipecsy.companystatus/
+     ├── auth/       # Bejelentkezés, regisztráció, AuthManager
+     ├── data/       # Room adatbázis, DAO-k, Repository-k
+     ├── network/    # Retrofit hívások, API interface-ek, DTO-k
+     ├── ui/         # Képernyők, ViewModel-ek, adapterek
+     └── util/       # Segédosztályok
+```
+
+A projekt azért ilyen felépítésű, hogy átlátható és könnyen fejleszthető legyen.
+
+---
+
+## 4. Hogyan működik az alkalmazás?
+
+1. Indításkor az AuthGate eldönti, hogy a felhasználó be van-e jelentkezve.  
+2. Ha igen → egyből a főoldalra jut.  
+3. A főoldalon letöltjük a szobákat a MockAPI-ról Retrofit segítségével.  
+4. A szoba megnyitásakor betöltődnek a tagok és az állapotuk.  
+5. A felhasználó tud státuszt módosítani, ami visszakerül a szerverre.  
+6. A kedvencek a Room adatbázisban tárolódnak, így internet nélkül is megmaradnak.  
+7. A profilképernyőn módosítható a megjelenítendő név.  
+8. A beállításokban állítható a téma, a lista nézete és van kijelentkezés is.
+
+---
+
+## 5. Room adatbázis használata
+
+A Room DB-t három dologra használja az app:
+
+- kedvencek tárolása  
+- profil adatok gyors betöltése  
+- tagsági státuszok cache-elése  
+
+Ez gyorsítja az alkalmazást, és akkor is működik, ha éppen nincs internet.
+
+---
+
+## 6. MockAPI végpontok
+
+A következő kollekciókat használjuk:
+
+- `/rooms` – szobák listája  
+- `/users` – felhasználók  
+- `/memberships` – felhasználók státusza a szobákban  
+
+Az adatok JSON formátumban érkeznek, Retrofit dolgozza fel őket.
+
+---
+
+## 7. Telepítés és futtatás
+
+### Szükséges:
+- Android Studio  
+- Java 17  
+- Android SDK 34  
+
+### Lépések:
+1. Klónozd a repót:
+   ```
+   git clone https://github.com/YOUR_USERNAME/company-status.git
+   ```
+2. Nyisd meg Android Studio-ban.  
+3. Várd meg a Gradle szinkront.  
+4. Futtasd emulátoron vagy telefonon.  
+
+Az alkalmazáshoz nincs szükség API kulcsra vagy külön konfigurációra.
+
+---
+
+## 8. Fejlesztők és feladatmegosztás
+
+### Fejlesztő 1 (háttérrész, logika)
+- Login és regisztráció működése  
+- Főoldal logika + Retrofit hívások  
+- Room adatbázis kialakítása  
+- Room Detail működése + státuszfrissítés  
+- Settings logika (alap státusz, kijelentkezés)  
+- ViewModel-ek és Repository-k
+
+### Fejlesztő 2 (UI és vizuális rész)
+- XML layoutok  
+- Material Design felület  
+- Navigation Graph  
+- Profil képernyő  
+- Sötét mód, lista nézet állítás  
+- RecyclerView adapterek  
+- AuthGate vizuális felépítése
+
+---
+
+## 9. A projekt célja
+
+A projektet azért készítettük, hogy gyakoroljuk:
+
+- az Android architektúra használatát  
+- a REST API-k kezelését  
+- a Room adatbázist  
+- a ViewModel és LiveData működését  
+- a modern és letisztult felület kialakítását  
+
+Az alkalmazás jól mutatja egy teljes Android app működését a belépéstől a szerverrel való kommunikációig.
